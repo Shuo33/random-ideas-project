@@ -3,55 +3,15 @@ const port = 5001;
 
 const app = express();
 
-const ideas = [
-    {
-      id: 1,
-      text: 'Positive NewsLetter, a newsletter that only shares positive, uplifting news',
-      tag: 'Technology',
-      username: 'TonyStark',
-      date: '2022-01-02',
-    },
-    {
-      id: 2,
-      text: 'Milk cartons that turn a different color the older that your milk is getting',
-      tag: 'Inventions',
-      username: 'SteveRogers',
-      date: '2022-01-02',
-    },
-    {
-      id: 3,
-      text: 'ATM location app which lets you know where the closest ATM is and if it is in service',
-      tag: 'Software',
-      username: 'BruceBanner',
-      date: '2022-01-02',
-    },
-  ];
-
 app.get('/', (req, res) => {
     res.json({message: 'Welcom to the RandomIdeas API'});
 });
 
-// Create a route to get all ideas
-app.get('/api/ideas', (req, res) => {
-    res.json({ success: true, data: ideas });
-});
+// bring 'ideas.js' to this 'server.js' file
+const ideasRouter = require('./routes/ideas');
 
-// Create a route to get a single idea
-// specified ':id' in the route, so we can access that route parameter using 'req.params.id'
-app.get('/api/ideas/:id', (req, res) => {
-    // find() loop through each idea and gives the idea with the id that matches the route parameter
-    // '+' turn a string into a number, '+req.params.id' gives the number of the id
-    const idea = ideas.find((idea) => idea.id === +req.params.id);
-    
-    //if idea didnt found, return 404 status code and an error
-    if (!idea) {
-        return res
-            .status(404)
-            .json({ success: false, error: 'Resource not found' });
-    }
+// app.use() helps to add middleware to the app. Here we adding the ideasRouter middleware to the '/api/ideas' route, which means all the routes in the ideasRouter will be prefixed with '/api/ideas' automatically. 
+app.use('/api/ideas', ideasRouter);
 
-    // if idea found, send back the idea as a successful JSON response
-    res.json({ sucess: true, data: idea });
-});
 
-app.listen(port, () => console.log(`Server listening on port ${port}`));
+app.listen(port, ()=> console.log(`Server listening on port ${port}`));
