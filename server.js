@@ -1,4 +1,7 @@
 const express = require('express');
+
+// dotenv is a library that allow us to store environment variables in a file called .env, we'll use this to store our MongoDB connection string, which is 'MONGO_URI'
+// here we load the environment variables from the .env file
 require('dotenv').config();
 
 const PORT = process.env.PORT || 5001;
