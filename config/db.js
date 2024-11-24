@@ -7,6 +7,7 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
 };
 
+// stop 'strictQuery' warning
 mongoose.set('strictQuery', true);
 
 module.exports = connectDB;
