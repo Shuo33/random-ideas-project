@@ -1,5 +1,10 @@
 const express = require('express');
-const port = 5001;
+require('dotenv').config();
+
+const PORT = process.env.PORT || 5001;
+
+const connectDB = require('./config/db');
+connectDB();
 
 const app = express();
 
@@ -24,4 +29,4 @@ const ideasRouter = require('./routes/ideas');
 app.use('/api/ideas', ideasRouter);
 
 
-app.listen(port, ()=> console.log(`Server listening on port ${port}`));
+app.listen(PORT, ()=> console.log(`Server listening on port ${PORT}`));
