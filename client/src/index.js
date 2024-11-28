@@ -9,3 +9,8 @@ import Modal from './components/Modal';
 // instantiate the Modal
 const modal = new Modal();
 
+//import IdeaForm
+import IdeaForm from './components/IdeaForm';
+//instantiate the IdeaForm
+const ideaForm = new IdeaForm();
+ideaForm.render();

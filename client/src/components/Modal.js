@@ -12,6 +12,9 @@ class Modal {
     addEventListeners() {
         this._modalBtn.addEventListener('click', this.open.bind(this));
         window.addEventListener('click', this.outSideClick.bind(this));
+
+        // the '()=>this.close()' is the same as 'this.close.bind(this)' 
+        document.addEventListener('closemodal', () => this.close())
     }
 
     open() {
