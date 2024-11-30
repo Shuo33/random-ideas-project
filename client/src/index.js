@@ -22,4 +22,5 @@ ideaForm.render();
 import IdeaList from './components/IdeaList';
 //instantiate the IdeaList
 const ideaList = new IdeaList();
-ideaList.render();
+// we render it at the file IdeaList.js at ligne 25, since we need to fetch the data first
+// ideaList.render();

@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 
 // dotenv is a library that allow us to store environment variables in a file called .env, we'll use this to store our MongoDB connection string, which is 'MONGO_URI'
 // here we load the environment variables from the .env file
@@ -25,6 +26,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 
+// cors middleware: cors middleware: we set an origin property, which is an array of urls that you allow to make request from
+app.use(
+    cors({
+      origin: ['http://localhost:5001', 'http://localhost:3000'],
+      credentials: true,
+    })
+);
+  
+
 app.get('/', (req, res) => {
     res.json({message: 'Welcom to the RandomIdeas API'});
 });
@@ -35,4 +45,7 @@ const ideasRouter = require('./routes/ideas');
 // app.use() helps to add middleware to the app. Here we adding the ideasRouter middleware to the '/api/ideas' route, which means all the routes in the ideasRouter will be prefixed with '/api/ideas' automatically. 
 app.use('/api/ideas', ideasRouter);
 
-app.listen(PORT, ()=> console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+
+
