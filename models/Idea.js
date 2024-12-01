@@ -6,10 +6,10 @@ const IdeaSchema = new mongoose.Schema({
         required: [true, 'Please add a text field']
     },
     tag: {
-        String
+        type: String,
     },
     username: {
-        type: String
+        type: String,
     },
     date: {
         type: Date,

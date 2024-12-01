@@ -21,11 +21,16 @@ class IdeaList {
             const res = await IdeasApi.getIdeas();
             // first data refer to the info of the promise of 'IdeaApi.getIdeas()', seconde data is the idea we want, see backend file 'idea.js' line 10
             this._ideas = res.data.data;
-            console.log(this._ideas);
-            // this.render();
+            // console.log(this._ideas);
+            this.render();
         } catch (error) {
             console.log(error);
         }
+    }
+
+    addIdeaToList(idea) {
+        this._ideas.push(idea);
+        this.render();
     }
 
     getTagClass(tag) {

@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 // import Modal
 import Modal from './components/Modal';
 // instantiate the Modal
-const modal = new Modal();
+new Modal();
 
 
 //import IdeaForm
@@ -21,6 +21,7 @@ ideaForm.render();
 //import IdeaList
 import IdeaList from './components/IdeaList';
 //instantiate the IdeaList
-const ideaList = new IdeaList();
+new IdeaList();
+
 // we render it at the file IdeaList.js at ligne 25, since we need to fetch the data first
 // ideaList.render();
