@@ -2,7 +2,7 @@
 import './css/style.css';
 
 // import CSS fontawesome
-import '@fortawesome/fontawesome-free/css/all.css';
+// import '@fortawesome/fontawesome-free/css/all.css';
 
 
 // import Modal

@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/index.js',
     output: {
         //allow us to use the absolute file path
@@ -20,7 +20,12 @@ module.exports = {
         open: true,
         hot: true,
         compress: true,
-        historyApiFallback: true
+        historyApiFallback: true,
+
+        // if you hit /api, then look at localhost:5001, since that's where our API actually exists
+        proxy: {
+            '/api': 'http://localhost:5001',
+        },
     },
     // definir the rules of the loader
     module: {
