@@ -45,13 +45,47 @@ class IdeaList {
         return tagClass;
     }
 
+    // click the delete button to delete the idea
+    addEventListeners() {
+        this._ideaListEl.addEventListener('click', (e) => {
+            // if the clicked element is the delete button
+            if (e.target.classList.contains('fa-times')) {
+                // stop the event from bubbing up to it's parent element
+                e.stopImmediatePropagation();
+
+                //get the idea's id number: use dataset wherever there's a data attribute and get the attribut's value with it's name
+                const ideaId = e.target.parentElement.parentElement.dataset.id;
+                this.deleteIdea(ideaId);
+            }  
+        });
+    }
+
+    async deleteIdea(ideaId) {
+        try {
+            // delete the idea from the server 
+            const res = await IdeasApi.deleteIdea(ideaId);
+
+            // delete the idea from the DOM: keep those that has not the ideaId
+            this._ideas.filter((idea) => idea.id !== ideaId); 
+            // render the filtered ones to the DOM 
+            this.getIdeas();
+
+        } catch (error) {
+            alert('You can not delete this resource'); 
+        }
+    }
+
     render() {
         this._ideaListEl.innerHTML = this._ideas.map((idea) => {
             const tagClass = this.getTagClass(idea.tag);
+            
+            // show the delete button only if the idea has the same username as the one that stored in the storage, which means you can only delete your idea but not the other's idea
+            const deleteBtn = idea.username === localStorage.getItem('username') ? `<button class="delete"><i class="fas fa-times"></i></button>` : '';
 
+            // add data-id into the div, with the id number given by idea._id 
             return `
-            <div class="card">
-                 <button class="delete"><i class="fas fa-times"></i></button>
+            <div class="card" data-id="${idea._id} ">
+                 ${deleteBtn}
                  <h3>
                  ${idea.text}
                  </h3>
@@ -61,6 +95,9 @@ class IdeaList {
                  </p>
             </div> `;
         }).join('');  
+
+        // we want it to run after the HTML renders: the element get affiched on the screen
+        this.addEventListeners();
     }
 }
 
